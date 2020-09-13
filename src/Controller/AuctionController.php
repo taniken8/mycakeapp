@@ -42,9 +42,11 @@ class AuctionController extends AuctionBaseController {
             'order' => ['endtime'=>'desc'],
             'limit' => 5]);
 
-        $bidreviews = $this->Bidreviews
-            ->find('all',['conditions' => ['review_user_id' => $this->Auth->user('id')]])
-            ->contain(['Users']);
+			$bidreviews = $this->Bidreviews
+			->find()
+			->where(['review_user_id' => $this->Auth->user('id')])
+			->order(['rate' => 'desc'])
+			->contain(['Users']);
 
         $bidreviewsAvg = $this->Bidreviews
             ->find()
